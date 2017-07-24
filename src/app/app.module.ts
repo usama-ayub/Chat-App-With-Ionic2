@@ -14,13 +14,17 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { RegisterPage } from '../pages/register/register';
 import { LoginPage } from '../pages/login/login';
+import { ChatPage } from '../pages/chat/chat';
 
 import { AuthProvider } from '../providers/auth/auth';
 import { HelperProvider } from '../providers/helper/helper';
 import { UserProvider } from '../providers/user/user';
+import { ChatProvider } from '../providers/chat/chat';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Camera } from '@ionic-native/camera';
+
 
 
 
@@ -31,7 +35,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HomePage,
     ListPage,
     RegisterPage,
-    LoginPage
+    LoginPage,
+    ChatPage
   ],
   imports: [
     BrowserModule,
@@ -46,15 +51,18 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HomePage,
     ListPage,
     RegisterPage,
-    LoginPage
+    LoginPage,
+    ChatPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    Camera,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     HelperProvider,
     AuthProvider,
-    UserProvider
+    UserProvider,
+    ChatProvider
   ]
 })
 export class AppModule { }

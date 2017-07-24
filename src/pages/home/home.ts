@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { FirebaseListObservable } from 'angularfire2/database';
 
 import { UserProvider } from '../../providers/user/user';
+import { ChatPage } from '../../pages/chat/chat';
 
 @Component({
   selector: 'page-home',
@@ -20,17 +21,19 @@ export class HomePage {
     this.uid = localStorage.getItem('uid');
   }
 
-  openChat(id){
-
-  }
+  
 
   ionViewDidLoad() {
-    this.up.currentUser().then(snapshot => {
+     this.up.currentUser().then(snapshot => {
       console.log(snapshot.val());
     }, (error) => {
       console.log(error);
-    })
+    }) 
     this.getAllUser = this.up.getAllUsers()
-    console.log(this.getAllUser);
   }
+
+   openChat(key) {
+        let param = {uid: this.uid, interlocutor: key};
+        this.navCtrl.push(ChatPage,param);
+    }
 }
