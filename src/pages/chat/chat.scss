@@ -1,25 +1,29 @@
-page-chat {
+page-chat {}
 
-}
 .chat-view {
-  .messages {
-    width: 100%;
-    position: absolute;
-    .message {
-      width: 70%;
-      padding: 5px 10px;
-      background: #3F51B5;
-      color: #fff;
-      border-radius: 5px;
-      margin: 5px;
-      float: left;
+    .messages {
+        width: 90%;
+        position: absolute;
+        img {
+            border-radius: 25px;
+            padding: 2px;
+        }
+        .message {
+            width: 70%;
+            padding: 5px 10px;
+            background: #3F51B5;
+            color: whitesmoke;
+            border-radius: 25px;
+            margin: 5px;
+            float: left;
+        }
+        .message.me {
+            float: right;
+            background: whitesmoke;
+            border: 1px solid #3F51B5;
+            color: #222;
+            text-align: right;
+            border-radius: 25px;
+        }
     }
-    .message.me {
-      float: right;
-      background: #fff;
-      border: 1px solid #3F51B5;
-      color: #222;
-      text-align: right;
-    }
-  }
 }

@@ -47,5 +47,12 @@ export class ChatPage {
       this.message = "";
     }
   };
-  sendPicture() { }
+  sendPicture() {
+    let chat = { from: this.uid, type: 'picture', picture: null };
+    this.chat.getPicture()
+      .then((image) => {
+        chat.picture = image;
+        this.chats.push(chat);
+      });
+  }
 }

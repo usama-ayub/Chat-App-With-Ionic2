@@ -19,21 +19,22 @@ export class HomePage {
     public up: UserProvider,
   ) {
     this.uid = localStorage.getItem('uid');
+
   }
 
-  
+
 
   ionViewDidLoad() {
-     this.up.currentUser().then(snapshot => {
+    this.up.currentUser().then(snapshot => {
       console.log(snapshot.val());
     }, (error) => {
       console.log(error);
-    }) 
+    })
     this.getAllUser = this.up.getAllUsers()
   }
 
-   openChat(key) {
-        let param = {uid: this.uid, interlocutor: key};
-        this.navCtrl.push(ChatPage,param);
-    }
+  openChat(key) {
+    let param = { uid: this.uid, interlocutor: key };
+    this.navCtrl.push(ChatPage, param);
+  }
 }
