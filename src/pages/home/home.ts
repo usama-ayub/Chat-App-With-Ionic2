@@ -17,16 +17,13 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public up: UserProvider,
-  ) {
-    this.uid = localStorage.getItem('uid');
-
-  }
+  ) { }
 
 
 
   ionViewDidLoad() {
     this.up.currentUser().then(snapshot => {
-      console.log(snapshot.val());
+      this.uid = snapshot.val().uid;
     }, (error) => {
       console.log(error);
     })

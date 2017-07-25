@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 
-/*
-  Generated class for the UserProvider provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular DI.
-*/
+import { AuthProvider } from '../../providers/auth/auth';
 @Injectable()
 export class UserProvider {
 
   uid: any;
 
   constructor(
-    public afd: AngularFireDatabase
+    public afd: AngularFireDatabase,
+    public ap: AuthProvider,
   ) {
-    this.uid = localStorage.getItem('uid')
+    this.ap.isLoggedin().subscribe((user) => {
+      if (user) {
+        this.uid = user.uid;
+      }
+      return;
+    });
   }
 
   createProfile(uid, user_name, email) {

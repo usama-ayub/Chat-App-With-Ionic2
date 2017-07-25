@@ -6,8 +6,8 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>register</ion-title>
+  <ion-navbar color="primary">
+    <ion-title secondary>Register</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -34,11 +34,11 @@
       </ion-item>
     </div>
     <br/>
-    <div>
-      <button ion-button secondary type="submit" round>Register</button>
+    <div style="float: right">
+      <button ion-button clear block (click)="toLogin()">Login</button>
     </div>
-    <div>
-      <button ion-button clear block [navPush]="login">Login</button>
+    <div style="float: left">
+      <button ion-button outline type="submit" round>Register</button>
     </div>
   </form>
 </ion-content>

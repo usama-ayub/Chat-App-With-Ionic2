@@ -35,13 +35,15 @@ export class HelperProvider {
     toast.present();
   }
   presentLoading(caller: any) {
+    console.log("caller:", caller)
     this.loading = this.loadingCtrl.create({
       content: caller ? caller : 'Please wait...'
     });
     this.loading.present();
   }
 
-  dismissLoading() {
+  dismissLoading(data?) {
+    console.log(data)
     if (this.loading) {
       this.loading.dismissAll();
       this.loading = null;

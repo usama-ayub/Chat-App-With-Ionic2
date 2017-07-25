@@ -14,7 +14,15 @@ export class AuthProvider {
     return this.afa.auth.signInWithEmailAndPassword(email, password)
   }
 
+  isLoggedin() {
+    return this.afa.authState;
+  }
+
   register(email, password) {
     return this.afa.auth.createUserWithEmailAndPassword(email, password)
   }
+
+  logout() {
+    return this.afa.auth.signOut();
+  } 
 }

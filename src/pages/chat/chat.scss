@@ -1,5 +1,10 @@
 page-chat {}
 
+ion-footer {
+    border-top: 0.5px solid #BA68C8;
+    background-color: whitesmoke;
+}
+
 .chat-view {
     .messages {
         width: 90%;
@@ -26,4 +31,11 @@ page-chat {}
             border-radius: 25px;
         }
     }
+}
+
+i {
+    font-size: 10px;
+    position: absolute;
+    top: 35px;
+    right: 15px;
 }

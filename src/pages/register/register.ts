@@ -21,32 +21,32 @@ export class RegisterPage {
     public ap: AuthProvider,
     public up: UserProvider,
     public hp: HelperProvider,
-  ) {
-    this.login = LoginPage;
-  }
+  ) { }
 
   register(user) {
     if (!user.valid) {
       return console.log('input field incomplete');
     }
-    this.hp.presentLoading(false);
+    // this.hp.presentLoading(false);
     this.ap.register(user.value.email, user.value.password).then(res => {
       let user_name = res.email.split("@");
-      localStorage.setItem('uid', res.uid);
       this.up.createProfile(res.uid, user_name[0], res.email).then(res => {
-        this.hp.dismissLoading();
+        // this.hp.dismissLoading("register");
         this.hp.presentToast("Register Successful");
         this.navCtrl.setRoot(HomePage);
-      }, (error) => {
-        this.hp.dismissLoading();
+      }).catch(error => {
+        // this.hp.dismissLoading("profile catch");
         this.hp.presentToast(error.message);
       })
-
       console.log(res);
-    }, (error) => {
-      this.hp.dismissLoading();
+    }).catch(error => {
+      // this.hp.dismissLoading("register catch");
       this.hp.presentToast(error.message);
     });
+  }
+
+  toLogin() {
+    this.navCtrl.setRoot(LoginPage);
   }
 
   ionViewDidLoad() {

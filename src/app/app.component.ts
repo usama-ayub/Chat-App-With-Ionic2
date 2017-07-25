@@ -2,9 +2,14 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+
+import { AuthProvider } from '../providers/auth/auth';
+import { HelperProvider } from '../providers/helper/helper';
+
 import { HomePage } from '../pages/home/home';
 import { RegisterPage } from '../pages/register/register';
 import { LoginPage } from '../pages/login/login';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -12,24 +17,26 @@ import { LoginPage } from '../pages/login/login';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = LoginPage;
 
-  pages: Array<{ title: string, component: any }>;
+  pages: Array<{ title: string, component: any, status: any }>;
   userLogined: any;
 
   constructor(
     public platform: Platform,
     public statusBar: StatusBar,
-    public splashScreen: SplashScreen
+    public splashScreen: SplashScreen,
+    public ap: AuthProvider,
+    public hp: HelperProvider,
   ) {
-    this.userLogined = localStorage.getItem('uid');
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'Register', component: RegisterPage },
-      { title: 'Login', component: LoginPage }
+      { title: 'Home', component: HomePage, status: false },
+      { title: 'Register', component: RegisterPage, status: true },
+      { title: 'Login', component: LoginPage, status: true },
+      { title: 'Logout', component: null, status: false },
     ];
   }
 
@@ -40,15 +47,36 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+    this.ap.isLoggedin().subscribe((user) => {
+      if (user) {
+        this.pages[0].status = true;
+        this.pages[1].status = false;
+        this.pages[2].status = false;
+        this.pages[3].status = true;
+        return this.nav.setRoot(HomePage);
+      }
+    });
   }
 
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
+    if (page.title === 'Logout') {
+      return this.logout();
+    }
     this.nav.setRoot(page.component);
   }
   logout() {
-    localStorage.clear();
-    return this.nav.setRoot(LoginPage);
+    //this.hp.presentLoading(false);
+    this.ap.logout().then(res => {
+      this.nav.setRoot(LoginPage);
+      this.pages[0].status = false;
+      this.pages[1].status = true;
+      this.pages[2].status = true;
+      this.pages[3].status = false;
+     // this.hp.dismissLoading("logout");
+      this.hp.presentToast('Logout Successful!');
+    }).catch(err => {
+     // this.hp.dismissLoading("logout catch");
+      this.hp.presentToast('Something Wrong');
+    });
   }
 }

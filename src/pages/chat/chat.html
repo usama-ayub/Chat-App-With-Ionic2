@@ -9,6 +9,7 @@
     <div class="message" *ngFor="let chat of chats | async" [ngClass]="{'me': uid === chat.from}">
       <span *ngIf="chat.message">{{chat.message}}</span>
       <img *ngIf="chat.picture" src="{{chat.picture}}" class="picture">
+      <i>{{chat.createdAt | date: 'dd/MM/yyyy'}}</i>
     </div>
   </div>
 </ion-content>
@@ -23,20 +24,3 @@
     </div>
   </ion-toolbar>
 </ion-footer>
-
-<!-- <ion-footer>
-  <ion-toolbar>
-    <ion-row>
-      <ion-col  col-6 [hidden]="!chats">
-        <ion-input type="text" placeholder="Enter Message" [(ngModel)]="message">
-        </ion-input>
-      </ion-col>
-      <ion-col >
-        <button ion-button col-6 (click)="sendPicture()"><ion-icon name="image" ></ion-icon></button>
-      </ion-col>
-      <ion-col [hidden]="!chats">
-        <button ion-button col-6 (click)="sendMessage()"><ion-icon name="send"></ion-icon></button>
-      </ion-col>
-    </ion-row>
-  </ion-toolbar>
-</ion-footer> -->

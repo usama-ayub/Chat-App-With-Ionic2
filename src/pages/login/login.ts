@@ -20,30 +20,29 @@ export class LoginPage {
     public navParams: NavParams,
     public ap: AuthProvider,
     public hp: HelperProvider,
-  ) {
-
-    this.register = RegisterPage;
-
-  }
+  ) { }
 
   login(user) {
     if (!user.valid) {
       return console.log('input field incomplete');
     }
-    this.hp.presentLoading(false);
+    //this.hp.presentLoading(false);
     this.ap.login(user.value.email, user.value.password).then(res => {
-      this.hp.dismissLoading();
+      //this.hp.dismissLoading("login");
       this.hp.presentToast("Login Successful");
-      localStorage.setItem('uid', res.uid);
       this.navCtrl.setRoot(HomePage);
-    }, (error) => {
+    }).catch(error => {
+      //this.hp.dismissLoading("login catch");
       this.hp.presentToast(error.message);
     });
   }
 
+  toRegister() {
+    this.navCtrl.setRoot(RegisterPage);
+  }
+
   ionViewDidLoad() {
-    let userLogined = localStorage.getItem('uid')
-    if (userLogined) return this.navCtrl.setRoot(HomePage);
+
   }
 
 }

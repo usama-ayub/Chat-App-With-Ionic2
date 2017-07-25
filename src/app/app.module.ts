@@ -24,15 +24,18 @@ import { ChatProvider } from '../providers/chat/chat';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Camera } from '@ionic-native/camera';
+import { ProfileComponent } from '../components/profile/profile';
 
 @NgModule({
   declarations: [
+    EmailValidator,
     MyApp,
     HomePage,
     ListPage,
     RegisterPage,
     LoginPage,
-    ChatPage
+    ChatPage,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

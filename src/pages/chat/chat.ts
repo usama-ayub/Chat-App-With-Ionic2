@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, Content } from 'ionic-angular';
 import { ChatProvider } from '../../providers/chat/chat';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import * as firebase from 'firebase';
 @Component({
   selector: 'page-chat',
   templateUrl: 'chat.html',
@@ -41,14 +42,20 @@ export class ChatPage {
       let chat = {
         from: this.uid,
         message: this.message,
-        type: 'message'
+        type: 'message',
+        createdAt: firebase.database.ServerValue.TIMESTAMP
       };
       this.chats.push(chat);
       this.message = "";
     }
   };
   sendPicture() {
-    let chat = { from: this.uid, type: 'picture', picture: null };
+    let chat = {
+      from: this.uid,
+      type: 'picture',
+      picture: null,
+      createdAt: firebase.database.ServerValue.TIMESTAMP
+    };
     this.chat.getPicture()
       .then((image) => {
         chat.picture = image;
