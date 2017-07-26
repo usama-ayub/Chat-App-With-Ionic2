@@ -9,6 +9,7 @@ import { HelperProvider } from '../providers/helper/helper';
 import { HomePage } from '../pages/home/home';
 import { RegisterPage } from '../pages/register/register';
 import { LoginPage } from '../pages/login/login';
+import { ProfilePage } from '../pages/profile/profile';
 
 
 @Component({
@@ -37,6 +38,7 @@ export class MyApp {
       { title: 'Register', component: RegisterPage, status: true },
       { title: 'Login', component: LoginPage, status: true },
       { title: 'Logout', component: null, status: false },
+      { title: 'Profile', component: ProfilePage, status: false },
     ];
   }
 
@@ -53,6 +55,7 @@ export class MyApp {
         this.pages[1].status = false;
         this.pages[2].status = false;
         this.pages[3].status = true;
+        this.pages[4].status = true;
         return this.nav.setRoot(HomePage);
       }
     });
@@ -72,10 +75,11 @@ export class MyApp {
       this.pages[1].status = true;
       this.pages[2].status = true;
       this.pages[3].status = false;
-     // this.hp.dismissLoading("logout");
+      this.pages[4].status = false;
+      // this.hp.dismissLoading("logout");
       this.hp.presentToast('Logout Successful!');
     }).catch(err => {
-     // this.hp.dismissLoading("logout catch");
+      // this.hp.dismissLoading("logout catch");
       this.hp.presentToast('Something Wrong');
     });
   }

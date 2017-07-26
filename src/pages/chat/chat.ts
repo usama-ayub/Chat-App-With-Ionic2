@@ -1,8 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, Content } from 'ionic-angular';
-import { ChatProvider } from '../../providers/chat/chat';
+import { NavController, NavParams, Content, ActionSheetController } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase';
+
+import { ChatProvider } from '../../providers/chat/chat';
+import { UserProvider } from '../../providers/user/user';
+
+
 @Component({
   selector: 'page-chat',
   templateUrl: 'chat.html',
@@ -11,6 +15,7 @@ export class ChatPage {
 
   message: string;
   uid: string;
+  avatar: string;
   interlocutor: string;
   chats: FirebaseListObservable<any>;
   @ViewChild(Content) content: Content;
@@ -18,7 +23,9 @@ export class ChatPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public chat: ChatProvider,
+    public actionSheetCtrl: ActionSheetController,
+    public cp: ChatProvider,
+    public up: UserProvider,
     public afd: AngularFireDatabase,
   ) {
 
@@ -26,10 +33,16 @@ export class ChatPage {
     this.interlocutor = navParams.data.interlocutor;
 
     // Get Chat Reference
-    chat.getChatRef(this.uid, this.interlocutor)
+    cp.getChatRef(this.uid, this.interlocutor)
       .then((chatRef: any) => {
         this.chats = this.afd.list(chatRef);
       });
+
+    this.up.currentUser().then(snapshot => {
+      this.avatar = snapshot.val().profileImageURL;
+    }, (error) => {
+      console.log(error);
+    })
 
   }
 
@@ -43,7 +56,8 @@ export class ChatPage {
         from: this.uid,
         message: this.message,
         type: 'message',
-        createdAt: firebase.database.ServerValue.TIMESTAMP
+        createdAt: firebase.database.ServerValue.TIMESTAMP,
+        avatar: this.avatar
       };
       this.chats.push(chat);
       this.message = "";
@@ -56,10 +70,41 @@ export class ChatPage {
       picture: null,
       createdAt: firebase.database.ServerValue.TIMESTAMP
     };
-    this.chat.getPicture()
-      .then((image) => {
-        chat.picture = image;
-        this.chats.push(chat);
-      });
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Modify your album',
+      buttons: [
+        {
+          text: 'From Camera',
+          role: 'destructive',
+          icon: 'camera',
+          handler: () => {
+            this.cp.getPicture(1)
+              .then((image) => {
+                chat.picture = image;
+                this.chats.push(chat);
+              });
+          }
+        }, {
+          text: 'From Gallery ',
+          role: 'destructive',
+          icon: 'images',
+          handler: () => {
+            this.cp.getPicture(0)
+              .then((image) => {
+                chat.picture = image;
+                this.chats.push(chat);
+              });
+          }
+        }, {
+          text: 'Cancel',
+          role: 'cancel',
+          icon: 'close',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
 }

@@ -21,6 +21,12 @@ ion-footer {
             border-radius: 25px;
             margin: 5px;
             float: left;
+            .avatar {
+                position: absolute;
+                width: 35px;
+                top: 4px;
+                left: -20px;
+            }
         }
         .message.me {
             float: right;
@@ -29,13 +35,15 @@ ion-footer {
             color: #222;
             text-align: right;
             border-radius: 25px;
+            .avatar {
+                position: absolute;
+                width: 35px;
+                top: 4px;
+            }
         }
     }
 }
 
 i {
     font-size: 10px;
-    position: absolute;
-    top: 35px;
-    right: 15px;
 }

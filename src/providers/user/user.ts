@@ -28,6 +28,12 @@ export class UserProvider {
     });
   }
 
+  updateProfile(uid, image) {
+    return this.afd.object('users/' + uid).update({
+      profileImageURL: image
+    });
+  }
+
   currentUser() {
     return this.afd.database.ref('/users/' + this.uid).once('value')
   }

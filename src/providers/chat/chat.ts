@@ -27,24 +27,46 @@ export class ChatProvider {
     return promise;
   }
 
-    // Get base64 Picture of User
-  getPicture() {
-      let base64Picture;
-      let options = {
-          destinationType: 0,
-          sourceType: 0,
-          encodingType:0  
-      };
-      
-      let promise = new Promise((resolve, reject) => {
-           this.camera.getPicture(options).then((imageData) => {
-                base64Picture = "data:image/jpeg;base64," + imageData;
-                resolve(base64Picture);
-            }, (error) => {
-                reject(error);
-          });
-      
+  // Get base64 Picture of User
+  getPicture(sourceType: number) {
+    let base64Picture;
+    let options = {
+      destinationType: 2,
+      sourceType: sourceType,
+      encodingType: 0,
+      allowEdit: true,
+      correctOrientation: true
+    };
+
+    let promise = new Promise((resolve, reject) => {
+      this.camera.getPicture(options).then((imageData) => {
+        base64Picture = imageData;
+        resolve(base64Picture);
+      }, (error) => {
+        reject(error);
       });
-      return promise;
+
+    });
+    return promise;
   }
+
+  /* cameraPicture() {
+    let base64Picture;
+    let options = {
+      destinationType: 0,
+      sourceType: 0,
+      encodingType: 0
+    };
+
+    let promise = new Promise((resolve, reject) => {
+      this.camera.getPicture(options).then((imageData) => {
+        base64Picture = "data:image/jpeg;base64," + imageData;
+        resolve(base64Picture);
+      }, (error) => {
+        reject(error);
+      });
+
+    });
+    return promise;
+  } */
 }

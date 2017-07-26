@@ -1,0 +1,48 @@
+.main-profile {
+    div {
+        ion-card {
+            border: 1px solid #BA68C8;
+        }
+        ion-card-content {
+            border-top: 1px solid #BA68C8;
+        }
+        ion-list {
+            border-top: 1px solid #BA68C8;
+        }
+        .profile {
+            padding: 10px;
+            width: 50%;
+            display: block;
+            margin: 0 auto;
+            img {
+                border-radius: 23pc;
+            }
+            .camera {
+                position: relative;
+                bottom: 50px;
+                font-size: 30px;
+                background-color: white;
+                opacity: 0.5;
+                width: 100%;
+                margin: auto;
+                display: flex;
+                justify-content: center;
+                ion-icon {
+                    padding-bottom: 9px;
+                    margin-top: 4px;
+                }
+            }
+            .camera:active {
+                position: relative;
+                bottom: 50px;
+                font-size: 30px;
+                background-color: white;
+                opacity: 1;
+                width: 100%;
+                margin: auto;
+                display: flex;
+                justify-content: center;
+            }
+        }
+    }
+}
