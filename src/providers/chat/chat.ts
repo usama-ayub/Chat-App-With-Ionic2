@@ -31,7 +31,7 @@ export class ChatProvider {
   getPicture(sourceType: number) {
     let base64Picture;
     let options = {
-      destinationType: 2,
+      destinationType: 0,
       sourceType: sourceType,
       encodingType: 0,
       allowEdit: true,
@@ -40,7 +40,7 @@ export class ChatProvider {
 
     let promise = new Promise((resolve, reject) => {
       this.camera.getPicture(options).then((imageData) => {
-        base64Picture = imageData;
+        base64Picture =  "data:image/jpeg;base64," + imageData;
         resolve(base64Picture);
       }, (error) => {
         reject(error);

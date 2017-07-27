@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 
-import { AuthProvider } from '../../providers/auth/auth';
 @Injectable()
 export class UserProvider {
 
@@ -9,14 +9,11 @@ export class UserProvider {
 
   constructor(
     public afd: AngularFireDatabase,
-    public ap: AuthProvider,
-  ) {
-    this.ap.isLoggedin().subscribe((user) => {
-      if (user) {
-        this.uid = user.uid;
-      }
-      return;
-    });
+    public afa: AngularFireAuth
+  ) { }
+
+  abc() {
+    return this.afa.auth.currentUser;
   }
 
   createProfile(uid, user_name, email) {
@@ -35,6 +32,7 @@ export class UserProvider {
   }
 
   currentUser() {
+    this.uid = this.afa.auth.currentUser.uid;
     return this.afd.database.ref('/users/' + this.uid).once('value')
   }
 

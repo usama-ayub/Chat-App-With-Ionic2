@@ -10,7 +10,7 @@ import { HomePage } from '../pages/home/home';
 import { RegisterPage } from '../pages/register/register';
 import { LoginPage } from '../pages/login/login';
 import { ProfilePage } from '../pages/profile/profile';
-
+import { ChangePasswordPage } from '../pages/change-password/change-password';
 
 @Component({
   templateUrl: 'app.html'
@@ -39,6 +39,7 @@ export class MyApp {
       { title: 'Login', component: LoginPage, status: true },
       { title: 'Logout', component: null, status: false },
       { title: 'Profile', component: ProfilePage, status: false },
+      { title: 'Change Password', component: ChangePasswordPage, status: false },
     ];
   }
 
@@ -56,6 +57,7 @@ export class MyApp {
         this.pages[2].status = false;
         this.pages[3].status = true;
         this.pages[4].status = true;
+        this.pages[5].status = true;
         return this.nav.setRoot(HomePage);
       }
     });
@@ -76,6 +78,7 @@ export class MyApp {
       this.pages[2].status = true;
       this.pages[3].status = false;
       this.pages[4].status = false;
+      this.pages[5].status = false;
       // this.hp.dismissLoading("logout");
       this.hp.presentToast('Logout Successful!');
     }).catch(err => {

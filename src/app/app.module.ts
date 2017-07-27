@@ -16,10 +16,11 @@ import { RegisterPage } from '../pages/register/register';
 import { LoginPage } from '../pages/login/login';
 import { ChatPage } from '../pages/chat/chat';
 import { ProfilePage } from '../pages/profile/profile';
+import { ChangePasswordPage } from '../pages/change-password/change-password';
 
 import { AuthProvider } from '../providers/auth/auth';
-import { HelperProvider } from '../providers/helper/helper';
 import { UserProvider } from '../providers/user/user';
+import { HelperProvider } from '../providers/helper/helper';
 import { ChatProvider } from '../providers/chat/chat';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -40,6 +41,7 @@ import { ProfileComponent } from '../components/profile/profile';
     LoginPage,
     ChatPage,
     ProfilePage,
+    ChangePasswordPage,
     ProfileComponent
   ],
   imports: [
@@ -57,7 +59,8 @@ import { ProfileComponent } from '../components/profile/profile';
     RegisterPage,
     LoginPage,
     ChatPage,
-    ProfilePage
+    ProfilePage,
+    ChangePasswordPage
   ],
   providers: [
     StatusBar,
@@ -67,8 +70,8 @@ import { ProfileComponent } from '../components/profile/profile';
     FilePath,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     HelperProvider,
-    AuthProvider,
     UserProvider,
+    AuthProvider,
     ChatProvider
   ]
 })

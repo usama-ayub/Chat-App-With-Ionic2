@@ -68,40 +68,24 @@ export class ProfilePage {
   fromCamera() {
     this.cp.getPicture(1)
       .then((image) => {
-        this.crop.crop(image, { quality: 75 })
-          .then((newImage) => {
-            this.up.updateProfile(this.currentUser.uid, newImage)
-              .then(res => {
-                this.hp.presentToast("Profile Change");
-              }).catch(error => {
-                this.hp.presentToast(error.message);
-              })
-            console.log('new image path is: ' + newImage)
+        this.up.updateProfile(this.currentUser.uid, image)
+          .then(res => {
+            this.hp.presentToast("Profile Change");
+          }).catch(error => {
+            this.hp.presentToast(error.message);
           })
-          .catch(error => {
-            console.error('Error cropping image', error)
-          });
       });
   }
 
   fromGallery() {
     this.cp.getPicture(0)
       .then((image) => {
-        let images = 'file://' + image
-        this.crop.crop(images, { quality: 75 })
-          .then((newImage) => {
-            newImage = "data:image/jpeg;base64," + newImage
-            this.up.updateProfile(this.currentUser.uid, newImage)
-              .then(res => {
-                this.hp.presentToast("Profile Change");
-              }).catch(error => {
-                this.hp.presentToast(error.message);
-              })
-            console.log('new image path is: ' + newImage)
+        this.up.updateProfile(this.currentUser.uid, image)
+          .then(res => {
+            this.hp.presentToast("Profile Change");
+          }).catch(error => {
+            this.hp.presentToast(error.message);
           })
-          .catch(error => {
-            console.error('Error cropping image', error)
-          });
       });
   }
   ionViewDidLoad() { }
