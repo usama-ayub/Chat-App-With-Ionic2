@@ -22,7 +22,7 @@ export class ChangePasswordPage {
   updatePassword(newPassword) {
     if (!newPassword.valid) return console.log('input field incomplete');
     if (newPassword.value.password.length <= 6) return this.hp.presentToast("Password must be 6 characters");
-    let user = this.up.abc()
+    let user = this.up.loginUser()
     this.ap.changePassword(user, newPassword.value.password)
       .then(res => {
         this.hp.presentToast("Password Successful Change");

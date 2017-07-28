@@ -22,14 +22,17 @@ import { AuthProvider } from '../providers/auth/auth';
 import { UserProvider } from '../providers/user/user';
 import { HelperProvider } from '../providers/helper/helper';
 import { ChatProvider } from '../providers/chat/chat';
+import { EmojiProvider } from '../providers/emoji/emoji';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Camera } from '@ionic-native/camera';
 import { Crop } from '@ionic-native/crop';
 import { FilePath } from '@ionic-native/file-path';
+import { FCM } from '@ionic-native/fcm';
 
 import { ProfileComponent } from '../components/profile/profile';
+
 
 @NgModule({
   declarations: [
@@ -42,6 +45,9 @@ import { ProfileComponent } from '../components/profile/profile';
     ChatPage,
     ProfilePage,
     ChangePasswordPage,
+    ProfileComponent
+  ],
+  exports: [
     ProfileComponent
   ],
   imports: [
@@ -68,11 +74,13 @@ import { ProfileComponent } from '../components/profile/profile';
     Camera,
     Crop,
     FilePath,
+    FCM,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     HelperProvider,
     UserProvider,
     AuthProvider,
-    ChatProvider
+    ChatProvider,
+    EmojiProvider
   ]
 })
 export class AppModule { }

@@ -5,14 +5,13 @@ import { AngularFireAuth } from 'angularfire2/auth';
 @Injectable()
 export class UserProvider {
 
-  uid: any;
 
   constructor(
     public afd: AngularFireDatabase,
     public afa: AngularFireAuth
   ) { }
 
-  abc() {
+  loginUser() {
     return this.afa.auth.currentUser;
   }
 
@@ -32,8 +31,8 @@ export class UserProvider {
   }
 
   currentUser() {
-    this.uid = this.afa.auth.currentUser.uid;
-    return this.afd.database.ref('/users/' + this.uid).once('value')
+    let uid = this.loginUser().uid;
+    return this.afd.database.ref('/users/' + uid).once('value')
   }
 
   getAllUsers() {

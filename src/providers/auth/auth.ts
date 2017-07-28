@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 import { UserProvider } from '../user/user';
 
 @Injectable()
 export class AuthProvider {
 
+  token: any;
+
   constructor(
     public afa: AngularFireAuth,
+    public afd: AngularFireDatabase,
     public up: UserProvider,
-  ) {
-    console.log('Hello AuthProvider Provider');
-  }
+  ) { }
 
   login(email, password) {
     return this.afa.auth.signInWithEmailAndPassword(email, password)
@@ -32,5 +34,10 @@ export class AuthProvider {
   changePassword(user, newPassword) {
     return user.updatePassword(newPassword)
   }
-  
+
+  saveToken() {
+    let uid = this.afa.auth.currentUser.uid;
+    if (uid && this.token) return this.afd.object(`/user/${uid}/token/`).set(this.token);
+  }
+
 }

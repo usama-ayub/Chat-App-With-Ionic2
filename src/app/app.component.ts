@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { FCM } from '@ionic-native/fcm';
 
 import { AuthProvider } from '../providers/auth/auth';
 import { HelperProvider } from '../providers/helper/helper';
@@ -27,6 +28,7 @@ export class MyApp {
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
+    public fcm: FCM,
     public ap: AuthProvider,
     public hp: HelperProvider,
   ) {
@@ -50,18 +52,68 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-    this.ap.isLoggedin().subscribe((user) => {
-      if (user) {
-        this.pages[0].status = true;
-        this.pages[1].status = false;
-        this.pages[2].status = false;
-        this.pages[3].status = true;
-        this.pages[4].status = true;
-        this.pages[5].status = true;
-        return this.nav.setRoot(HomePage);
-      }
-    });
+
+    this.ap.isLoggedin()
+      .subscribe((user) => {
+        if (user) {
+          this.pages[0].status = true;
+          this.pages[1].status = false;
+          this.pages[2].status = false;
+          this.pages[3].status = true;
+          this.pages[4].status = true;
+          this.pages[5].status = true;
+          if (this.ap.token) {
+            this.ap.saveToken().then(res => {
+              console.log(res);
+            }).catch(error => {
+              console.log(error);
+            })
+          }
+          return this.nav.setRoot(HomePage);
+        }
+      });
+
   }
+
+  initPushNotification() {
+    this.fcm.getToken().then(token => {
+      console.log(token);
+      this.ap.token = token;
+      this.ap.saveToken().then(res => {
+        console.log(res);
+      }).catch(error => {
+        console.log(error);
+      })
+    })
+
+
+    this.fcm.onNotification().subscribe(data => {
+      if (data.wasTapped) {
+        console.log("Received in background");
+      } else {
+        console.log("Received in foreground");
+      };
+    })
+
+    this.fcm.onTokenRefresh()
+      .subscribe(token => {
+        this.ap.token = token;
+        this.ap.saveToken().then(res => {
+          console.log(res);
+        }).catch(error => {
+          console.log(error);
+        })
+      })
+  }
+
+
+
+
+
+
+
+
+
 
   openPage(page) {
     if (page.title === 'Logout') {

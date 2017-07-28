@@ -27,14 +27,15 @@ export class LoginPage {
       return console.log('input field incomplete');
     }
     //this.hp.presentLoading(false);
-    this.ap.login(user.value.email, user.value.password).then(res => {
-      //this.hp.dismissLoading("login");
-      this.hp.presentToast("Login Successful");
-      this.navCtrl.setRoot(HomePage);
-    }).catch(error => {
-      //this.hp.dismissLoading("login catch");
-      this.hp.presentToast(error.message);
-    });
+    this.ap.login(user.value.email, user.value.password)
+      .then(res => {
+        //this.hp.dismissLoading("login");
+        this.hp.presentToast("Login Successful");
+        this.navCtrl.setRoot(HomePage);
+      }).catch(error => {
+        //this.hp.dismissLoading("login catch");
+        this.hp.presentToast(error.message);
+      });
   }
 
   toRegister() {
