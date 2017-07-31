@@ -35,8 +35,7 @@ export class AuthProvider {
     return user.updatePassword(newPassword)
   }
 
-  saveToken() {
-    let uid = this.afa.auth.currentUser.uid;
+  saveToken(uid) {
     if (uid && this.token) return this.afd.object(`/user/${uid}/token/`).set(this.token);
   }
 

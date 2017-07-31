@@ -33,11 +33,11 @@ export class ChatPage {
     this.interlocutor = navParams.data.interlocutor;
 
     // Get Chat Reference
-    cp.getChatRef(this.uid, this.interlocutor)
-      .then((chatRef: any) => {
-        this.chats = this.afd.list(chatRef);
-      });
-
+    /*  cp.getChatRef(this.uid, this.interlocutor)
+       .then((chatRef: any) => {
+         this.chats = this.afd.list(chatRef);
+       });
+  */
     this.up.currentUser().then(snapshot => {
       this.avatar = snapshot.val().profileImageURL;
     }, (error) => {
@@ -47,7 +47,16 @@ export class ChatPage {
   }
 
   ionViewDidLoad() {
-    this.content.scrollToBottom();
+    // Get Chat Reference
+    this.cp.getChatRef(this.uid, this.interlocutor)
+      .then((chatRef: any) => {
+        this.chats = this.afd.list(chatRef);
+        this.afd.list(chatRef).subscribe(chats => {
+          setTimeout(() => {
+            this.content.scrollToBottom();
+          }, 300);
+        })
+      });
   }
 
   sendMessage() {

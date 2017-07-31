@@ -23,11 +23,7 @@ export class HomePage {
     public modalCtrl: ModalController,
     public up: UserProvider,
     public ep: EmojiProvider
-  ) {
-
-    // console.log(this.ep.getAll())
-
-  }
+  ) { }
 
   ionViewDidLoad() {
     this.uid = this.up.loginUser().uid
@@ -38,4 +34,5 @@ export class HomePage {
     let param = { uid: this.uid, interlocutor: key };
     this.navCtrl.push(ChatPage, param);
   }
+  
 }

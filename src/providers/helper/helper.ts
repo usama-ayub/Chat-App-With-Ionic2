@@ -2,12 +2,6 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { ToastController, LoadingController, Loading } from 'ionic-angular';
 
-/*
-  Generated class for the HelperProvider provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular DI.
-*/
 @Injectable()
 export class HelperProvider {
 
@@ -35,7 +29,6 @@ export class HelperProvider {
     toast.present();
   }
   presentLoading(caller: any) {
-    console.log("caller:", caller)
     this.loading = this.loadingCtrl.create({
       content: caller ? caller : 'Please wait...'
     });
@@ -43,7 +36,6 @@ export class HelperProvider {
   }
 
   dismissLoading(data?) {
-    console.log(data)
     if (this.loading) {
       this.loading.dismissAll();
       this.loading = null;

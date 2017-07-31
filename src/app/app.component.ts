@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { FCM } from '@ionic-native/fcm';
@@ -11,6 +11,7 @@ import { HomePage } from '../pages/home/home';
 import { RegisterPage } from '../pages/register/register';
 import { LoginPage } from '../pages/login/login';
 import { ProfilePage } from '../pages/profile/profile';
+import { ChatPage } from '../pages/chat/chat';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
 
 @Component({
@@ -20,7 +21,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = LoginPage;
-
+  uid: any;
   pages: Array<{ title: string, component: any, status: any }>;
   userLogined: any;
 
@@ -28,13 +29,13 @@ export class MyApp {
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
+    public alertCtrl: AlertController,
     public fcm: FCM,
     public ap: AuthProvider,
     public hp: HelperProvider,
   ) {
     this.initializeApp();
 
-    // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage, status: false },
       { title: 'Register', component: RegisterPage, status: true },
@@ -47,31 +48,28 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-
     this.ap.isLoggedin()
       .subscribe((user) => {
         if (user) {
+          this.uid = user.uid;
           this.pages[0].status = true;
           this.pages[1].status = false;
           this.pages[2].status = false;
           this.pages[3].status = true;
           this.pages[4].status = true;
           this.pages[5].status = true;
-          if (this.ap.token) {
-            this.ap.saveToken().then(res => {
-              console.log(res);
-            }).catch(error => {
-              console.log(error);
-            })
-          }
+          this.ap.saveToken(this.uid);
           return this.nav.setRoot(HomePage);
         }
       });
+    try {
+      this.initPushNotification();
+    } catch (err) {
+      console.log('initPushNotification Error', err);
+    }
 
   }
 
@@ -79,30 +77,39 @@ export class MyApp {
     this.fcm.getToken().then(token => {
       console.log(token);
       this.ap.token = token;
-      this.ap.saveToken().then(res => {
-        console.log(res);
-      }).catch(error => {
-        console.log(error);
-      })
+      this.ap.saveToken(this.uid);
     })
 
 
-    this.fcm.onNotification().subscribe(data => {
-      if (data.wasTapped) {
-        console.log("Received in background");
+    this.fcm.onNotification().subscribe(notification => {
+      if (notification.wasTapped) {
+        let params = { uid: notification.senderId, interlocutor: notification.receiverId }
+        this.nav.push(ChatPage, params);
       } else {
-        console.log("Received in foreground");
-      };
-    })
+        let alert = this.alertCtrl.create({
+          title: notification.title,
+          message: notification.message,
+          buttons: [
+            {
+              text: 'OK',
+            },
+            {
+              text: 'View',
+              handler: data => {
+                let params = { uid: notification.senderId, interlocutor: notification.receiverId }
+                this.nav.push(ChatPage, params);
+              }
+            }
+          ]
+        });
+        alert.present();
+      }
+    });
 
     this.fcm.onTokenRefresh()
       .subscribe(token => {
         this.ap.token = token;
-        this.ap.saveToken().then(res => {
-          console.log(res);
-        }).catch(error => {
-          console.log(error);
-        })
+        this.ap.saveToken(this.uid);
       })
   }
 

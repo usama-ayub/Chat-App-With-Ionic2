@@ -50,23 +50,4 @@ export class ChatProvider {
     return promise;
   }
 
-  /* cameraPicture() {
-    let base64Picture;
-    let options = {
-      destinationType: 0,
-      sourceType: 0,
-      encodingType: 0
-    };
-
-    let promise = new Promise((resolve, reject) => {
-      this.camera.getPicture(options).then((imageData) => {
-        base64Picture = "data:image/jpeg;base64," + imageData;
-        resolve(base64Picture);
-      }, (error) => {
-        reject(error);
-      });
-
-    });
-    return promise;
-  } */
 }
