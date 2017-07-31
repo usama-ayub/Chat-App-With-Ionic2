@@ -28,8 +28,8 @@
   <div>
     <ion-card>
       <div class="profile">
-        <img *ngIf="!currentUser.profileImageURL" width="175px" height="125px" src="assets/images/default.jpg" />
-        <img *ngIf="currentUser.profileImageURL" width="175px" height="125px" src="{{currentUser.profileImageURL}}" />
+        <img *ngIf="!currentUser.profileImageURL" width="175px" height="130px" src="assets/images/default.jpg" />
+        <img *ngIf="currentUser.profileImageURL" width="175px" height="130px" src="{{currentUser.profileImageURL}}" />
         <div class="camera" (click)="updatePicture()">
           <ion-icon name="camera"></ion-icon>
         </div>

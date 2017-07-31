@@ -19,8 +19,8 @@
             }
             .camera {
                 position: relative;
-                bottom: 50px;
-                font-size: 30px;
+                bottom: 35px;
+                font-size: 25px;
                 background-color: white;
                 opacity: 0.5;
                 width: 100%;
@@ -29,13 +29,13 @@
                 justify-content: center;
                 ion-icon {
                     padding-bottom: 9px;
-                    margin-top: 4px;
+                    margin-top: 2px;
                 }
             }
             .camera:active {
                 position: relative;
-                bottom: 50px;
-                font-size: 30px;
+                bottom: 35px;
+                font-size: 25px;
                 background-color: white;
                 opacity: 1;
                 width: 100%;
