@@ -38,11 +38,11 @@ export class MyApp {
 
     this.pages = [
       { title: 'Home', component: HomePage, status: false },
-      { title: 'Register', component: RegisterPage, status: true },
       { title: 'Login', component: LoginPage, status: true },
-      { title: 'Logout', component: null, status: false },
+      { title: 'Register', component: RegisterPage, status: true },
       { title: 'Profile', component: ProfilePage, status: false },
       { title: 'Change Password', component: ChangePasswordPage, status: false },
+      { title: 'Logout', component: null, status: false }
     ];
   }
 
@@ -65,17 +65,16 @@ export class MyApp {
           return this.nav.setRoot(HomePage);
         }
       });
-    try {
+    /* try {
       this.initPushNotification();
     } catch (err) {
       console.log('initPushNotification Error', err);
-    }
+    } */
 
   }
 
   initPushNotification() {
     this.fcm.getToken().then(token => {
-      console.log(token);
       this.ap.token = token;
       this.ap.saveToken(this.uid);
     })
@@ -126,7 +125,11 @@ export class MyApp {
     if (page.title === 'Logout') {
       return this.logout();
     }
-    this.nav.setRoot(page.component);
+    if (page.title === 'Home' || page.title === 'Login' || page.title === 'Register') {
+      this.nav.setRoot(page.component);
+      return;
+    }
+    this.nav.push(page.component);
   }
   logout() {
     //this.hp.presentLoading(false);

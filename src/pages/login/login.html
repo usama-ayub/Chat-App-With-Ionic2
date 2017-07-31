@@ -21,7 +21,7 @@
         <ion-input type="email" name="email" #email="ngModel" ngModel validateEmail required></ion-input>
       </ion-item>
       <ion-item [hidden]="email.valid || (email.pristine && !user.submitted)">
-        <small><i ion-text color="primary">Email is required and format should be john@doe.com.</i></small>
+        <small><i ion-text color="danger">Email is required and format should be john@doe.com.</i></small>
       </ion-item>
     </div>
     <div>
@@ -30,7 +30,7 @@
         <ion-input type="password" name="password" #password="ngModel" ngModel required></ion-input>
       </ion-item>
       <ion-item [hidden]="password.valid || (password.pristine && !user.submitted)">
-        <small><i ion-text color="primary">Password is required</i></small>
+        <small><i ion-text color="danger">Password is required</i></small>
       </ion-item>
     </div>
     <br/>

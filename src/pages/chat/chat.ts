@@ -52,6 +52,7 @@ export class ChatPage {
       .then((chatRef: any) => {
         this.chats = this.afd.list(chatRef);
         this.afd.list(chatRef).subscribe(chats => {
+          console.log(chats);
           setTimeout(() => {
             this.content.scrollToBottom();
           }, 300);

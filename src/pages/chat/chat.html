@@ -9,8 +9,8 @@
     <div class="message" *ngFor="let chat of chats | async" [ngClass]="{'me': uid === chat.from}">
       <span *ngIf="chat.message">{{chat.message}}</span>
       <img *ngIf="chat.picture" src="{{chat.picture}}" class="picture"><br/>
-      <i>{{chat.createdAt | date: 'dd/MM/yyyy'}}</i>
-      <!-- <img class="avatar" src="{{chat.avatar}}"> -->
+      <i>{{chat.createdAt | date: 'yMMMdjms'}}</i>
+        <img class="avatar" src="{{chat.avatar}}">
     </div>
   </div>
 </ion-content>
