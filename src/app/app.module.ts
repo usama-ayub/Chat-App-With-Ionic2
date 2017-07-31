@@ -23,6 +23,7 @@ import { UserProvider } from '../providers/user/user';
 import { HelperProvider } from '../providers/helper/helper';
 import { ChatProvider } from '../providers/chat/chat';
 import { EmojiProvider } from '../providers/emoji/emoji';
+import { StorageProvider } from '../providers/storage/storage';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -32,6 +33,7 @@ import { FilePath } from '@ionic-native/file-path';
 import { FCM } from '@ionic-native/fcm';
 
 import { ProfileComponent } from '../components/profile/profile';
+
 
 
 @NgModule({
@@ -80,7 +82,8 @@ import { ProfileComponent } from '../components/profile/profile';
     UserProvider,
     AuthProvider,
     ChatProvider,
-    EmojiProvider
+    EmojiProvider,
+    StorageProvider
   ]
 })
 export class AppModule { }

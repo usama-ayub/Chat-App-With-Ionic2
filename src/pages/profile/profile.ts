@@ -6,6 +6,7 @@ import { FilePath } from '@ionic-native/file-path';
 import { UserProvider } from '../../providers/user/user';
 import { ChatProvider } from '../../providers/chat/chat';
 import { HelperProvider } from '../../providers/helper/helper';
+import { StorageProvider } from '../../providers/storage/storage';
 
 @Component({
   selector: 'page-profile',
@@ -22,6 +23,7 @@ export class ProfilePage {
     public up: UserProvider,
     public cp: ChatProvider,
     public hp: HelperProvider,
+    public sp: StorageProvider,
     private crop: Crop,
     private filePath: FilePath
   ) {
@@ -80,6 +82,9 @@ export class ProfilePage {
   fromGallery() {
     this.cp.getPicture(0)
       .then((image) => {
+        this.sp.uploadProfile(this.currentUser.uid, image)
+          .on(firebase.storage.TaskEvent.STATE_CHANGED, () => { },
+          (err) => { return console.log(err) }, (uploadTask) => { return console.log(uploadTask.snapshot.downloadURL) })
         this.up.updateProfile(this.currentUser.uid, image)
           .then(res => {
             this.hp.presentToast("Profile Change");
