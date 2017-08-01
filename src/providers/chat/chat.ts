@@ -5,10 +5,9 @@ import { AngularFireDatabase } from 'angularfire2/database';
 
 @Injectable()
 export class ChatProvider {
-
   constructor(
     public afd: AngularFireDatabase,
-    public camera: Camera,
+    public camera: Camera
   ) { }
 
   getChatRef(uid, interlocutor) {
@@ -27,6 +26,14 @@ export class ChatProvider {
     return promise;
   }
 
+  getChatByID(uid, interlocutor) {
+    return this.afd.list(`/chats/${uid},${interlocutor}`, {
+      query: {
+        orderByChild: 'from',
+        equalTo: uid
+      }
+    });
+  }
   // Get base64 Picture of User
   getPicture(sourceType: number) {
     let base64Picture;
@@ -40,7 +47,7 @@ export class ChatProvider {
 
     let promise = new Promise((resolve, reject) => {
       this.camera.getPicture(options).then((imageData) => {
-        base64Picture =  "data:image/jpeg;base64," + imageData;
+        base64Picture = "data:image/jpeg;base64," + imageData;
         resolve(base64Picture);
       }, (error) => {
         reject(error);

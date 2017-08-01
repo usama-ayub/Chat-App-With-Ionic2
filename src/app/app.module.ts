@@ -31,9 +31,7 @@ import { Camera } from '@ionic-native/camera';
 import { Crop } from '@ionic-native/crop';
 import { FilePath } from '@ionic-native/file-path';
 import { FCM } from '@ionic-native/fcm';
-
-import { ProfileComponent } from '../components/profile/profile';
-
+import { EmojiComponent } from '../components/emoji/emoji';
 
 
 @NgModule({
@@ -47,10 +45,7 @@ import { ProfileComponent } from '../components/profile/profile';
     ChatPage,
     ProfilePage,
     ChangePasswordPage,
-    ProfileComponent
-  ],
-  exports: [
-    ProfileComponent
+    EmojiComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +63,8 @@ import { ProfileComponent } from '../components/profile/profile';
     LoginPage,
     ChatPage,
     ProfilePage,
-    ChangePasswordPage
+    ChangePasswordPage,
+    EmojiComponent
   ],
   providers: [
     StatusBar,

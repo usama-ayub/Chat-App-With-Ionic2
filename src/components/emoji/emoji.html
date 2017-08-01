@@ -1,0 +1,10 @@
+<!-- Generated template for the EmojiComponent component -->
+<!--  <div *ngFor="let e of emoj">
+  {{e.emoji}}
+</div>  -->
+<ion-grid>
+  <ion-row>
+    <ion-col *ngFor="let e of emoj" col-2 (click)="close()">{{e.emoji}}</ion-col>
+  </ion-row>
+</ion-grid>
+

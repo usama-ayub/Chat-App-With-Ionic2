@@ -6,7 +6,6 @@ import { UserProvider } from '../../providers/user/user';
 import { EmojiProvider } from '../../providers/emoji/emoji';
 import { ChatPage } from '../../pages/chat/chat';
 
-import { ProfileComponent } from './../../components/profile/profile';
 
 @Component({
   selector: 'page-home',
@@ -34,5 +33,5 @@ export class HomePage {
     let param = { uid: this.uid, interlocutor: key };
     this.navCtrl.push(ChatPage, param);
   }
-  
+
 }

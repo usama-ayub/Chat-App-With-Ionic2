@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content padding>
-   <ion-spinner  color="primary" *ngIf="!(getAllUser | async)"></ion-spinner>
+  <ion-spinner color="primary" *ngIf="!(getAllUser | async)"></ion-spinner>
   <ion-list>
     <span *ngFor="let user of getAllUser | async">
         <a ion-item (click)="openChat(user.$key)" *ngIf="user.$key !== uid">
@@ -22,5 +22,4 @@
         </a>
       </span>
   </ion-list>
-  <!--  <profile [(model)]="tes" [popupAnchor]="'bottom'"></profile> -->
 </ion-content>

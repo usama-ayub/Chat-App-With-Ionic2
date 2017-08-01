@@ -1,11 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, Content, ActionSheetController } from 'ionic-angular';
+import { NavController, NavParams, Content, ActionSheetController, PopoverController } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase';
 
 import { ChatProvider } from '../../providers/chat/chat';
 import { UserProvider } from '../../providers/user/user';
-
+import { EmojiComponent } from './../../components/emoji/emoji';
 
 @Component({
   selector: 'page-chat',
@@ -24,6 +24,7 @@ export class ChatPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public actionSheetCtrl: ActionSheetController,
+    public popoverCtrl: PopoverController,
     public cp: ChatProvider,
     public up: UserProvider,
     public afd: AngularFireDatabase,
@@ -33,17 +34,24 @@ export class ChatPage {
     this.interlocutor = navParams.data.interlocutor;
 
     // Get Chat Reference
-    /*  cp.getChatRef(this.uid, this.interlocutor)
-       .then((chatRef: any) => {
-         this.chats = this.afd.list(chatRef);
-       });
-  */
+    cp.getChatByID(this.uid, this.interlocutor)
+      .subscribe(user => {
+        console.log(user);
+      })
+
     this.up.currentUser().then(snapshot => {
       this.avatar = snapshot.val().profileImageURL;
     }, (error) => {
       console.log(error);
     })
 
+  }
+
+  presentPopover(myEvent) {
+    let popover = this.popoverCtrl.create(EmojiComponent);
+    popover.present({
+      ev: myEvent
+    });
   }
 
   ionViewDidLoad() {
@@ -60,6 +68,8 @@ export class ChatPage {
       });
   }
 
+
+
   sendMessage() {
     if (this.message) {
       let chat = {
@@ -73,6 +83,7 @@ export class ChatPage {
       this.message = "";
     }
   };
+
   sendPicture() {
     let chat = {
       from: this.uid,
@@ -117,4 +128,5 @@ export class ChatPage {
     });
     actionSheet.present();
   }
+
 }

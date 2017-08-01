@@ -15,7 +15,7 @@ import { StorageProvider } from '../../providers/storage/storage';
 export class ProfilePage {
 
   currentUser: any;
-
+  newProfile: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -69,9 +69,15 @@ export class ProfilePage {
   fromCamera() {
     this.cp.getPicture(1)
       .then((image) => {
-        this.up.updateProfile(this.currentUser.uid, image)
+        this.sp.uploadProfile(this.currentUser.uid, image)
           .then(res => {
-            this.hp.presentToast("Profile Change");
+            this.up.updateProfile(this.currentUser.uid, res)
+              .then(res => {
+                this.newProfile = res;
+                this.hp.presentToast("Profile Change");
+              }).catch(error => {
+                this.hp.presentToast(error.message);
+              })
           }).catch(error => {
             this.hp.presentToast(error.message);
           })
