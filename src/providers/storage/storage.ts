@@ -5,12 +5,19 @@ import * as firebase from 'firebase';
 export class StorageProvider {
   storageRef: any;
   constructor() {
-    this.storageRef = firebase.storage();
+    //this.storageRef = firebase.storage();
   }
 
   uploadProfile(uid, image) {
-    const upload = this.storageRef.ref(`profile/${uid}/profileImg`)
-      .put(image)
-    return upload;
+    var upload = firebase.storage().ref(`profile/${uid}/profileImg.jpg`)
+      .putString(image, 'data_url');
+    let promise = new Promise((resolve, reject) => {
+      upload.on(firebase.storage.TaskEvent.STATE_CHANGED,
+        () => { },
+        (err) => { reject(err) },
+        () => { resolve(upload.snapshot.downloadURL) });
+    });
+    return promise;
+
   }
 }

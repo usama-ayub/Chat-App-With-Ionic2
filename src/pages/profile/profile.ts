@@ -30,7 +30,6 @@ export class ProfilePage {
 
     this.up.currentUser().then(snapshot => {
       this.currentUser = snapshot.val();
-      console.log(this.currentUser.uid);
     }, (error) => {
       console.log(error);
     })
@@ -83,11 +82,13 @@ export class ProfilePage {
     this.cp.getPicture(0)
       .then((image) => {
         this.sp.uploadProfile(this.currentUser.uid, image)
-          .on(firebase.storage.TaskEvent.STATE_CHANGED, () => { },
-          (err) => { return console.log(err) }, (uploadTask) => { return console.log(uploadTask.snapshot.downloadURL) })
-        this.up.updateProfile(this.currentUser.uid, image)
           .then(res => {
-            this.hp.presentToast("Profile Change");
+            this.up.updateProfile(this.currentUser.uid, res)
+              .then(res => {
+                this.hp.presentToast("Profile Change");
+              }).catch(error => {
+                this.hp.presentToast(error.message);
+              })
           }).catch(error => {
             this.hp.presentToast(error.message);
           })
