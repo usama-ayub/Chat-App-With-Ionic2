@@ -15,12 +15,12 @@ export class UserProvider {
     return this.afa.auth.currentUser;
   }
 
-  createProfile(uid, user_name, email) {
+  createProfile(uid, user_name, email, profileImageURL?) {
     return this.afd.object('users/' + uid).set({
       uid,
       user_name,
       email,
-      profileImageURL: 'https://www.gravatar.com/avatar?d=mm'
+      profileImageURL: profileImageURL ? profileImageURL : 'https://www.gravatar.com/avatar?d=mm'
     });
   }
 

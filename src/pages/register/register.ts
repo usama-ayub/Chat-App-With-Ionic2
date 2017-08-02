@@ -39,7 +39,6 @@ export class RegisterPage {
           // this.hp.dismissLoading("profile catch");
           this.hp.presentToast(error.message);
         })
-        console.log(res);
       }).catch(error => {
         // this.hp.dismissLoading("register catch");
         this.hp.presentToast(error.message);

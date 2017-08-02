@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
+import * as firebase from 'firebase';
 
 import { UserProvider } from '../user/user';
 
@@ -17,6 +18,10 @@ export class AuthProvider {
 
   login(email, password) {
     return this.afa.auth.signInWithEmailAndPassword(email, password)
+  }
+
+  loginWithGoogle() {
+    return this.afa.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
   isLoggedin() {

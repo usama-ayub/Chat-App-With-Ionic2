@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { AuthProvider } from '../../providers/auth/auth';
 import { HelperProvider } from '../../providers/helper/helper';
+import { UserProvider } from '../../providers/user/user';
 
 import { RegisterPage } from '../register/register';
 import { HomePage } from '../home/home';
@@ -20,7 +21,25 @@ export class LoginPage {
     public navParams: NavParams,
     public ap: AuthProvider,
     public hp: HelperProvider,
+    public up: UserProvider
   ) { }
+
+
+  loginWithGoogle() {
+    this.ap.loginWithGoogle()
+      .then(res => {
+        console.log(res.user)
+        this.up.createProfile(res.user.uid, res.user.displayName, res.user.email, res.user.photoURL).then(res => {
+          this.hp.presentToast("Login With Google Successful");
+          this.navCtrl.setRoot(HomePage);
+        }).catch(error => {
+          this.hp.presentToast(error.message);
+        })
+      }).catch(error => {
+        console.log(error.message)
+        this.hp.presentToast(error.message);
+      });
+  }
 
   login(user) {
     if (!user.valid) {

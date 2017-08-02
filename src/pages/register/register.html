@@ -6,39 +6,39 @@
 -->
 <ion-header>
 
-  <ion-navbar color="primary">
-    <ion-title secondary>Register</ion-title>
-  </ion-navbar>
+    <ion-navbar color="primary">
+        <ion-title secondary>Register</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <form #user="ngForm" (ngSubmit)="register(user)" novalidate>
-    <div>
-      <ion-item>
-        <ion-label floating>Email</ion-label>
-        <ion-input type="email" name="email" #email="ngModel" ngModel validateEmail required></ion-input>
-      </ion-item>
-      <ion-item [hidden]="email.valid || (email.pristine && !user.submitted)">
-        <small><i ion-text color="danger">Email is required and format should be john@doe.com.</i></small>
-      </ion-item>
-    </div>
-    <div>
-      <ion-item>
-        <ion-label floating>Password</ion-label>
-        <ion-input type="password" name="password" #password="ngModel" ngModel required></ion-input>
-      </ion-item>
-      <ion-item [hidden]="password.valid || (password.pristine && !user.submitted)">
-        <small><i ion-text color="danger">Password is required</i></small>
-      </ion-item>
-    </div>
-    <br/>
-    <div style="float: right">
-      <button ion-button clear block (click)="toLogin()">Login</button>
-    </div>
-    <div style="float: left">
-      <button ion-button outline type="submit" round>Register</button>
-    </div>
-  </form>
+    <form #user="ngForm" (ngSubmit)="register(user)" novalidate>
+        <div>
+            <ion-item>
+                <ion-label floating>Email</ion-label>
+                <ion-input type="email" name="email" #email="ngModel" ngModel validateEmail required></ion-input>
+            </ion-item>
+            <ion-item [hidden]="email.valid || (email.pristine && !user.submitted)">
+                <small><i ion-text color="danger">Email is required and format should be john@doe.com.</i></small>
+            </ion-item>
+        </div>
+        <div>
+            <ion-item>
+                <ion-label floating>Password</ion-label>
+                <ion-input type="password" name="password" #password="ngModel" ngModel required></ion-input>
+            </ion-item>
+            <ion-item [hidden]="password.valid || (password.pristine && !user.submitted)">
+                <small><i ion-text color="danger">Password is required</i></small>
+            </ion-item>
+        </div>
+        <br/>
+        <div style="float: right">
+            <button ion-button clear block (click)="toLogin()">Login</button>
+        </div>
+        <div style="float: left; margin-left: 12px;">
+            <button ion-button outline type="submit" round>Register</button>
+        </div>
+    </form>
 </ion-content>
