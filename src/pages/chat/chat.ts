@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, Content, ActionSheetController, PopoverController } from 'ionic-angular';
+import { NavController, NavParams, Content, ActionSheetController, PopoverController, ModalController } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase';
 
@@ -13,7 +13,8 @@ import { EmojiComponent } from './../../components/emoji/emoji';
 })
 export class ChatPage {
 
-  message: string;
+  message = '';
+  emojiMeg: string;
   uid: string;
   avatar: string;
   interlocutor: string;
@@ -25,6 +26,7 @@ export class ChatPage {
     public navParams: NavParams,
     public actionSheetCtrl: ActionSheetController,
     public popoverCtrl: PopoverController,
+    public modalCtrl: ModalController,
     public cp: ChatProvider,
     public up: UserProvider,
     public afd: AngularFireDatabase,
@@ -48,10 +50,16 @@ export class ChatPage {
   }
 
   presentPopover(myEvent) {
-    let popover = this.popoverCtrl.create(EmojiComponent);
-    popover.present({
-      ev: myEvent
+    let profileModal = this.modalCtrl.create(EmojiComponent);
+    profileModal.present();
+    profileModal.onDidDismiss(data => {
+      if (!data) return;
+      this.message = this.message.concat('' + data);
     });
+    /*  let popover = this.popoverCtrl.create(EmojiComponent);
+     popover.present({
+       ev: myEvent
+     }); */
   }
 
   ionViewDidLoad() {

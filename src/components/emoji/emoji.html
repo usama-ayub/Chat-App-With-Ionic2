@@ -2,9 +2,20 @@
 <!--  <div *ngFor="let e of emoj">
   {{e.emoji}}
 </div>  -->
-<ion-grid>
-  <ion-row>
-    <ion-col *ngFor="let e of emoj" col-2 (click)="close()">{{e.emoji}}</ion-col>
-  </ion-row>
-</ion-grid>
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>Select Emoji</ion-title>
+        <ion-buttons end>
+            <button ion-button (click)="close()">Close
+      </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
 
+<ion-content padding class="emoji-content">
+    <ion-grid>
+        <ion-row class="emoji">
+            <ion-col *ngFor="let e of emoj" col-2 (click)="close(e.emoji)">{{e.emoji}}</ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

@@ -17,8 +17,8 @@ export class EmojiComponent {
     this.emoj = this.emoji.getAll();
   }
 
-  close() {
-    this.viewCtrl.dismiss();
+  close(emoji?) {
+    this.viewCtrl.dismiss(emoji);
   }
   
 }
