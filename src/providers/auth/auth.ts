@@ -24,6 +24,10 @@ export class AuthProvider {
     return this.afa.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
+  loginWithFacebook() {
+    return this.afa.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
+  }
+
   isLoggedin() {
     return this.afa.authState;
   }

@@ -28,13 +28,28 @@ export class LoginPage {
   loginWithGoogle() {
     this.ap.loginWithGoogle()
       .then(res => {
-        console.log(res.user)
         this.up.createProfile(res.user.uid, res.user.displayName, res.user.email, res.user.photoURL).then(res => {
           this.hp.presentToast("Login With Google Successful");
           this.navCtrl.setRoot(HomePage);
         }).catch(error => {
           this.hp.presentToast(error.message);
         })
+      }).catch(error => {
+        console.log(error.message)
+        this.hp.presentToast(error.message);
+      });
+  }
+
+  loginWithFacebook() {
+    this.ap.loginWithFacebook()
+      .then(res => {
+        console.log(res.user)
+        /* this.up.createProfile(res.user.uid, res.user.displayName, res.user.email, res.user.photoURL).then(res => {
+          this.hp.presentToast("Login With Google Successful");
+          this.navCtrl.setRoot(HomePage);
+        }).catch(error => {
+          this.hp.presentToast(error.message);
+        }) */
       }).catch(error => {
         console.log(error.message)
         this.hp.presentToast(error.message);

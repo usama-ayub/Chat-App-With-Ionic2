@@ -37,9 +37,7 @@ export class ChatPage {
 
     // Get Chat Reference
     cp.getChatByID(this.uid, this.interlocutor)
-      .subscribe(user => {
-        console.log(user);
-      })
+      .subscribe(user => { })
 
     this.up.currentUser().then(snapshot => {
       this.avatar = snapshot.val().profileImageURL;
@@ -68,7 +66,6 @@ export class ChatPage {
       .then((chatRef: any) => {
         this.chats = this.afd.list(chatRef);
         this.afd.list(chatRef).subscribe(chats => {
-          console.log(chats);
           setTimeout(() => {
             this.content.scrollToBottom();
           }, 300);
