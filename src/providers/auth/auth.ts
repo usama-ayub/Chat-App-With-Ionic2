@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Facebook } from '@ionic-native/facebook';
+import { GooglePlus } from '@ionic-native/google-plus';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebase from 'firebase';
@@ -11,6 +13,8 @@ export class AuthProvider {
   token: any;
 
   constructor(
+    private facebook: Facebook,
+    private googlePlus: GooglePlus,
     public afa: AngularFireAuth,
     public afd: AngularFireDatabase,
     public up: UserProvider,
@@ -21,11 +25,19 @@ export class AuthProvider {
   }
 
   loginWithGoogle() {
-    return this.afa.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    this.googlePlus.login({
+      'webClientId': 'cloud.chatApp.com',
+    })
+      .then(res => console.log('Logged into Google!', res))
+      .catch(err => console.log('Error logging into Google', err));
+    //return this.afa.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
   loginWithFacebook() {
-    return this.afa.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
+    this.facebook.login(['email'])
+      .then((res) => console.log('Logged into Facebook!', res))
+      .catch(e => console.log('Error logging into Facebook', e));
+    // return this.afa.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
   }
 
   isLoggedin() {

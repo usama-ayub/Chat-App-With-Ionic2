@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Camera } from '@ionic-native/camera';
 import 'rxjs/add/operator/map';
 import { AngularFireDatabase } from 'angularfire2/database';
 

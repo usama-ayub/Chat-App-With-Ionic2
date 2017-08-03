@@ -31,6 +31,8 @@ import { Camera } from '@ionic-native/camera';
 import { Crop } from '@ionic-native/crop';
 import { FilePath } from '@ionic-native/file-path';
 import { FCM } from '@ionic-native/fcm';
+import { Facebook } from '@ionic-native/facebook';
+import { GooglePlus } from '@ionic-native/google-plus';
 import { EmojiComponent } from '../components/emoji/emoji';
 
 
@@ -73,6 +75,8 @@ import { EmojiComponent } from '../components/emoji/emoji';
     Crop,
     FilePath,
     FCM,
+    Facebook,
+    GooglePlus,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     HelperProvider,
     UserProvider,

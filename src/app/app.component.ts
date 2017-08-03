@@ -14,6 +14,8 @@ import { ProfilePage } from '../pages/profile/profile';
 import { ChatPage } from '../pages/chat/chat';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
 
+declare var window: any;
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -74,13 +76,14 @@ export class MyApp {
   }
 
   initPushNotification() {
-    this.fcm.getToken().then(token => {
+    window.FirebasePlugin.getToken.then(token => {
       this.ap.token = token;
       this.ap.saveToken(this.uid);
     })
 
 
-    this.fcm.onNotification().subscribe(notification => {
+    window.FirebasePlugin.onNotificationOpen(function (notification) {
+      console.log(notification);
       if (notification.wasTapped) {
         let params = { uid: notification.senderId, interlocutor: notification.receiverId }
         this.nav.push(ChatPage, params);
@@ -103,13 +106,18 @@ export class MyApp {
         });
         alert.present();
       }
+    }, function (error) {
+      console.error(error);
     });
 
-    this.fcm.onTokenRefresh()
-      .subscribe(token => {
-        this.ap.token = token;
-        this.ap.saveToken(this.uid);
-      })
+
+    window.FirebasePlugin.onTokenRefresh(function (token) {
+      this.ap.token = token;
+      this.ap.saveToken(this.uid);
+    }, function (error) {
+      console.error(error);
+    });
+    
   }
 
 

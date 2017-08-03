@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ActionSheetController } from 'ionic-angular';
-import { Crop } from '@ionic-native/crop';
-import { FilePath } from '@ionic-native/file-path';
 
 import { UserProvider } from '../../providers/user/user';
 import { ChatProvider } from '../../providers/chat/chat';
@@ -23,9 +21,7 @@ export class ProfilePage {
     public up: UserProvider,
     public cp: ChatProvider,
     public hp: HelperProvider,
-    public sp: StorageProvider,
-    private crop: Crop,
-    private filePath: FilePath
+    public sp: StorageProvider
   ) {
 
     this.up.currentUser().then(snapshot => {
