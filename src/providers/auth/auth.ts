@@ -24,15 +24,28 @@ export class AuthProvider {
     return this.afa.auth.signInWithEmailAndPassword(email, password)
   }
 
+  /*  loginWithGoogle() {
+     this.googlePlus.login({
+       'webClientId': '621842033369-7bu3ps5kp0vmeiasfa392qtj6bii9n4r.apps.googleusercontent.com',
+     })
+       .then(res => console.log('Logged into Google!', res))
+       .catch(err => console.log('Error logging into Google', err));
+     //return this.afa.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+   } */
   loginWithGoogle() {
-    this.googlePlus.login({
-      'webClientId': 'cloud.chatApp.com',
-    })
-      .then(res => console.log('Logged into Google!', res))
-      .catch(err => console.log('Error logging into Google', err));
-    //return this.afa.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    let promise = new Promise((resolve, reject) => {
+      this.googlePlus.login({
+        'webClientId': '621842033369-7bu3ps5kp0vmeiasfa392qtj6bii9n4r.apps.googleusercontent.com',
+      })
+        .then((res) => {
+          const firecreds = firebase.auth.GoogleAuthProvider.credential(res.idToken);
+          resolve(this.afa.auth.signInWithCredential(firecreds));
+        }, (error) => {
+          reject(error);
+        });
+    });
+    return promise;
   }
-
   loginWithFacebook() {
     this.facebook.login(['email'])
       .then((res) => console.log('Logged into Facebook!', res))
@@ -57,6 +70,8 @@ export class AuthProvider {
   }
 
   saveToken(uid) {
+    console.log('uid',uid);
+    console.log('token)',this.token);
     if (uid && this.token) return this.afd.object(`/user/${uid}/token/`).set(this.token);
   }
 

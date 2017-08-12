@@ -67,24 +67,26 @@ export class MyApp {
           return this.nav.setRoot(HomePage);
         }
       });
-    /* try {
+    try {
       this.initPushNotification();
     } catch (err) {
       console.log('initPushNotification Error', err);
-    } */
+    }
 
   }
 
   initPushNotification() {
-    window.FirebasePlugin.getToken.then(token => {
+    window.FirebasePlugin.getToken((token) => {
+      console.log('token', token);
       this.ap.token = token;
       this.ap.saveToken(this.uid);
-    })
-
+    }, (error) => {
+      console.error(error);
+    });
 
     window.FirebasePlugin.onNotificationOpen(function (notification) {
       console.log(notification);
-      if (notification.wasTapped) {
+       if (notification.wasTapped) {
         let params = { uid: notification.senderId, interlocutor: notification.receiverId }
         this.nav.push(ChatPage, params);
       } else {
@@ -105,19 +107,19 @@ export class MyApp {
           ]
         });
         alert.present();
-      }
-    }, function (error) {
+      } 
+    }, (error) => {
       console.error(error);
     });
 
 
-    window.FirebasePlugin.onTokenRefresh(function (token) {
+    window.FirebasePlugin.onTokenRefresh((token) => {
       this.ap.token = token;
       this.ap.saveToken(this.uid);
-    }, function (error) {
+    }, (error) => {
       console.error(error);
     });
-    
+
   }
 
 
