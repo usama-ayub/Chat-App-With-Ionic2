@@ -1,25 +1,24 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <button ion-button menuToggle>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>All Users</ion-title>
-  </ion-navbar>
+        <ion-title>All Users</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-spinner color="primary" *ngIf="!(getAllUser | async)"></ion-spinner>
-  <ion-list>
-    <span *ngFor="let user of getAllUser | async">
-        <a ion-item (click)="openChat(user.$key)" *ngIf="user.$key !== uid">
+    <ion-spinner color="primary" *ngIf="!(getAllUser | async)"></ion-spinner>
+    <ion-list>
+        <span *ngFor="let user of getAllUser | async">
+        <a ion-item (click)="openChat(user)" *ngIf="user.$key !== uid">
              <ion-avatar item-left>
                 <img *ngIf="!user.profileImageURL" src="assets/images/default.png">
                 <img *ngIf="user.profileImageURL" src="{{user.profileImageURL}}">
              </ion-avatar>
              <h2>{{user.email}}</h2>
              <h5>{{user.user_name}}</h5>
-              <!-- <button ion-button clear item-end >View</button> -->
         </a>
       </span>
-  </ion-list>
+    </ion-list>
 </ion-content>

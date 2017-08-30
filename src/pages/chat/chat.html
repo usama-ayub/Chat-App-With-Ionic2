@@ -1,28 +1,28 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>Chat</ion-title>
-  </ion-navbar>
+    <ion-navbar color="primary">
+        <ion-title>Chat</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding class="chat-view" id="chat-view">
-  <div class="messages">
-    <div class="message" *ngFor="let chat of chats | async" [ngClass]="{'me': uid === chat.from}">
-      <span *ngIf="chat.message">{{chat.message}}</span>
-      <img *ngIf="chat.picture" src="{{chat.picture}}" class="picture"><br/>
-      <i>{{chat.createdAt | date: 'yMMMdjms'}}</i>
-      <img class="avatar" src="{{chat.avatar}}">
+    <div class="messages">
+        <div class="message" *ngFor="let chat of chats | async" [ngClass]="{'me': uid === chat.from}">
+            <span *ngIf="chat.message">{{chat.message}}</span>
+            <img *ngIf="chat.picture" src="{{chat.picture}}" class="picture"><br/>
+            <i>{{chat.createdAt | date: 'yMMMdjms'}}</i>
+            <img class="avatar" src="{{avatar}}">
+        </div>
     </div>
-  </div>
 </ion-content>
 
 
 <ion-footer>
-  <ion-toolbar>
-    <div class="chat-footer">
-      <button ion-fab mini (click)="sendPicture()" color="favorite"><ion-icon name="image" ></ion-icon></button>
-      <ion-input type="text" placeholder="Enter Message" [(ngModel)]="message"></ion-input>
-      <button ion-fab mini color="favorite" (click)="presentPopover($event)"><ion-icon name="happy"></ion-icon></button>
-      <button ion-fab mini [disabled]="!chats" (click)="sendMessage()" color="favorite"><ion-icon name="send"></ion-icon></button>
-    </div>
-  </ion-toolbar>
+    <ion-toolbar>
+        <div class="chat-footer">
+            <button ion-fab mini (click)="sendPicture()" color="favorite"><ion-icon name="image" ></ion-icon></button>
+            <ion-input type="text" placeholder="Enter Message" [(ngModel)]="message"></ion-input>
+            <button ion-fab mini color="favorite" (click)="presentPopover($event)"><ion-icon name="happy"></ion-icon></button>
+            <button ion-fab mini [disabled]="!chats" (click)="sendMessage()" color="favorite"><ion-icon name="send"></ion-icon></button>
+        </div>
+    </ion-toolbar>
 </ion-footer>

@@ -5,7 +5,7 @@ import { FirebaseListObservable } from 'angularfire2/database';
 import { UserProvider } from '../../providers/user/user';
 import { EmojiProvider } from '../../providers/emoji/emoji';
 import { ChatPage } from '../../pages/chat/chat';
-
+import { UserDetailComponent } from './../../components/user-detail/user-detail';
 
 @Component({
   selector: 'page-home',
@@ -29,9 +29,18 @@ export class HomePage {
     this.getAllUser = this.up.getAllUsers()
   }
 
-  openChat(key) {
-    let param = { uid: this.uid, interlocutor: key };
+  openChat(data) {
+    let param = {
+      uid: this.uid,
+      interlocutor: data.$key,
+      avatar: data.profileImageURL
+    };
     this.navCtrl.push(ChatPage, param);
   }
 
+  userDetail(data) {
+    let userModal = this.modalCtrl.create(UserDetailComponent, data);
+    userModal.present();
+  }
 }
+

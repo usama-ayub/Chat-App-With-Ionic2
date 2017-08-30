@@ -34,6 +34,7 @@ import { FCM } from '@ionic-native/fcm';
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { EmojiComponent } from '../components/emoji/emoji';
+import { UserDetailComponent } from '../components/user-detail/user-detail';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { EmojiComponent } from '../components/emoji/emoji';
     ChatPage,
     ProfilePage,
     ChangePasswordPage,
-    EmojiComponent
+    EmojiComponent,
+    UserDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +68,8 @@ import { EmojiComponent } from '../components/emoji/emoji';
     ChatPage,
     ProfilePage,
     ChangePasswordPage,
-    EmojiComponent
+    EmojiComponent,
+    UserDetailComponent
   ],
   providers: [
     StatusBar,

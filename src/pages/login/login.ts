@@ -29,7 +29,6 @@ export class LoginPage {
     this.ap.loginWithGoogle()
       .then(res => {
         console.log(res);
-        let ress = res;
         /*    this.up.createProfile(res.uid, res.user.displayName, res.user.email, res.user.photoURL).then(res => {
              this.hp.presentToast("Login With Google Successful");
              this.navCtrl.setRoot(HomePage);

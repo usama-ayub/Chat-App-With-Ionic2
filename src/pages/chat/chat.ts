@@ -4,7 +4,6 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 import * as firebase from 'firebase';
 
 import { ChatProvider } from '../../providers/chat/chat';
-import { UserProvider } from '../../providers/user/user';
 import { EmojiComponent } from './../../components/emoji/emoji';
 
 @Component({
@@ -28,22 +27,16 @@ export class ChatPage {
     public popoverCtrl: PopoverController,
     public modalCtrl: ModalController,
     public cp: ChatProvider,
-    public up: UserProvider,
     public afd: AngularFireDatabase,
   ) {
 
     this.uid = navParams.data.uid;
     this.interlocutor = navParams.data.interlocutor;
+    this.avatar = navParams.data.avatar
 
     // Get Chat Reference
     cp.getChatByID(this.uid, this.interlocutor)
       .subscribe(user => { })
-
-    this.up.currentUser().then(snapshot => {
-      this.avatar = snapshot.val().profileImageURL;
-    }, (error) => {
-      console.log(error);
-    })
 
   }
 
@@ -81,8 +74,7 @@ export class ChatPage {
         from: this.uid,
         message: this.message,
         type: 'message',
-        createdAt: firebase.database.ServerValue.TIMESTAMP,
-        avatar: this.avatar
+        createdAt: firebase.database.ServerValue.TIMESTAMP
       };
       this.chats.push(chat);
       this.message = "";
