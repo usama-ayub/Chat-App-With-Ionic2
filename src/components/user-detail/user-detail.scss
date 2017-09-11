@@ -1,3 +1,42 @@
 user-detail {
+    .main-profile {
+        ion-card {
+            border: 0px solid #BA68C8 !important;
+        }
+        ion-card-content {
+            border-top: 0px solid #BA68C8 !important;
+            p {
+                text-align: center;
+            }
+        }
+        ion-list {
+            border-top: 0px solid #BA68C8 !important;
+        }
+        .profile {
+            padding: 8px;
+            width: 50%;
+            display: block;
+            margin: 0 auto;
+            img {
+                border-radius: 23pc;
+                border: 1px solid #BA68C8
+            }
+        }
+    }
+}
 
+ion-modal.my-popup {
+    ion-backdrop {
+        visibility: visible;
+    }
+    .modal-wrapper {
+        padding: 30px;
+        background: rgba(0, 0, 0, 0.7);
+        position: absolute;
+        top: 90px;
+        left: 55px;
+        display: block;
+        width: 70%;
+        height: 63%;
+    }
 }

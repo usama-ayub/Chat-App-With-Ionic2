@@ -2,12 +2,31 @@
     <ion-navbar color="primary">
         <ion-title></ion-title>
         <ion-buttons end>
-            <button ion-button (click)="close()">Close
+            <button ion-button (click)="close()"><ion-icon name="close" style="font-size: 28px;"></ion-icon>
     </button>
+
         </ion-buttons>
     </ion-navbar>
 </ion-header>
 
-<ion-content padding class="emoji-content">
+<ion-content class="main-profile">
+    <ion-card>
+        <div class="profile">
+            <img *ngIf="!currentUser.profileImageURL" width="155px" height="115px" src="assets/images/default.jpg" />
+            <img *ngIf="currentUser.profileImageURL" width="155px" height="115px" src="{{currentUser.profileImageURL}}" />
+        </div>
+        <ion-card-content>
+            <ion-card-title text-center>
+                {{currentUser.user_name}}
+            </ion-card-title>
+            <p>
+                Web and Mobile application developer with passion for coding and business analyst to provide problem solving approach.
+            </p>
+        </ion-card-content>
+    </ion-card>
+    <br>
+    <ion-card>
+        <button ion-button block>Send Message</button>
+    </ion-card>
 
 </ion-content>

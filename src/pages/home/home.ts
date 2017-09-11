@@ -38,7 +38,8 @@ export class HomePage {
     this.navCtrl.push(ChatPage, param);
   }
 
-  userDetail(data) {
+  userDetail(event,data) {
+    event.stopPropagation();
     let userModal = this.modalCtrl.create(UserDetailComponent, data);
     userModal.present();
   }
