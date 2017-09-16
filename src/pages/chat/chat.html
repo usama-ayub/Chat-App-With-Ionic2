@@ -20,8 +20,10 @@
     <ion-toolbar>
         <div class="chat-footer">
             <button ion-fab mini (click)="sendPicture()" color="favorite"><ion-icon name="image" ></ion-icon></button>
-            <ion-input type="text" placeholder="Enter Message" [(ngModel)]="message"></ion-input>
+            <button ion-fab mini (click)="sendVoiceMeg()" color="favorite"><ion-icon name="mic"></ion-icon></button>
+
             <button ion-fab mini color="favorite" (click)="presentPopover($event)"><ion-icon name="happy"></ion-icon></button>
+            <ion-input type="text" placeholder="Enter Message" [(ngModel)]="message"></ion-input>
             <button ion-fab mini [disabled]="!chats" (click)="sendMessage()" color="favorite"><ion-icon name="send"></ion-icon></button>
         </div>
     </ion-toolbar>

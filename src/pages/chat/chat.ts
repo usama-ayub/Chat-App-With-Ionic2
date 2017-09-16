@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, Content, ActionSheetController, PopoverController, ModalController } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase';
-
+import { SpeechRecognition } from '@ionic-native/speech-recognition';
 import { ChatProvider } from '../../providers/chat/chat';
 import { EmojiComponent } from './../../components/emoji/emoji';
 
@@ -28,6 +28,7 @@ export class ChatPage {
     public modalCtrl: ModalController,
     public cp: ChatProvider,
     public afd: AngularFireDatabase,
+    public speechRecognition: SpeechRecognition
   ) {
 
     this.uid = navParams.data.uid;
@@ -36,7 +37,7 @@ export class ChatPage {
 
     // Get Chat Reference
     cp.getChatByID(this.uid, this.interlocutor)
-      .subscribe(user => { })
+      .subscribe(user => { console.log('getChatByID' + user)})
 
   }
 
@@ -59,6 +60,7 @@ export class ChatPage {
       .then((chatRef: any) => {
         this.chats = this.afd.list(chatRef);
         this.afd.list(chatRef).subscribe(chats => {
+          console.log(chats);
           setTimeout(() => {
             this.content.scrollToBottom();
           }, 300);
@@ -80,6 +82,10 @@ export class ChatPage {
       this.message = "";
     }
   };
+
+  sendVoiceMeg() {
+
+  }
 
   sendPicture() {
     let chat = {

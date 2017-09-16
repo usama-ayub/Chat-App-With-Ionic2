@@ -33,6 +33,7 @@ import { FilePath } from '@ionic-native/file-path';
 import { FCM } from '@ionic-native/fcm';
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
+import { SpeechRecognition } from '@ionic-native/speech-recognition';
 import { EmojiComponent } from '../components/emoji/emoji';
 import { UserDetailComponent } from '../components/user-detail/user-detail';
 
@@ -80,6 +81,7 @@ import { UserDetailComponent } from '../components/user-detail/user-detail';
     FCM,
     Facebook,
     GooglePlus,
+    SpeechRecognition,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     HelperProvider,
     UserProvider,
