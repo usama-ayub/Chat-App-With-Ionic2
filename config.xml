@@ -114,4 +114,5 @@
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="cordova-plugin-speechrecognition" spec="^1.1.2" />
     <engine name="android" spec="~6.4.0" />
+    <allow-navigation href="http://192.168.0.100:8101" />
 </widget>
