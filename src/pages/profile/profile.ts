@@ -67,9 +67,12 @@ export class ProfilePage {
       .then((image) => {
         this.sp.uploadProfile(this.currentUser.uid, image)
           .then(res => {
+            console.log('image::::',res)
             this.up.updateProfile(this.currentUser.uid, res)
-              .then(res => {
+              .then(result => {
+                console.log('profile res',res)
                 this.currentUser['profileImageURL']  = res;
+                console.log('profile res1',this.currentUser['profileImageURL'])
                 this.newProfile = res;
                 this.hp.presentToast("Profile Change");
               }).catch(error => {
