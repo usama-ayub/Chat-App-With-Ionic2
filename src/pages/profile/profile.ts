@@ -69,6 +69,7 @@ export class ProfilePage {
           .then(res => {
             this.up.updateProfile(this.currentUser.uid, res)
               .then(res => {
+                this.currentUser['profileImageURL']  = res;
                 this.newProfile = res;
                 this.hp.presentToast("Profile Change");
               }).catch(error => {
@@ -87,6 +88,8 @@ export class ProfilePage {
           .then(res => {
             this.up.updateProfile(this.currentUser.uid, res)
               .then(res => {
+                this.currentUser['profileImageURL']  = res;
+                this.newProfile = res;
                 this.hp.presentToast("Profile Change");
               }).catch(error => {
                 this.hp.presentToast(error.message);
