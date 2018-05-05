@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
-
+import * as firebase from 'firebase';
 @Injectable()
 export class UserProvider {
 
@@ -32,7 +32,8 @@ export class UserProvider {
 
   currentUser() {
     let uid = this.loginUser().uid;
-    return this.afd.database.ref('/users/' + uid).once('value')
+    return firebase.database().ref('/users/' + uid).once('value')
+    // return this.afd.database.ref('/users/' + uid).once('value')
   }
 
   getAllUsers() {

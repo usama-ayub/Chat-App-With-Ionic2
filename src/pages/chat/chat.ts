@@ -18,6 +18,7 @@ export class ChatPage {
   avatar: string;
   interlocutor: string;
   chats: FirebaseListObservable<any>;
+  voiceToText:Array<string>;
   @ViewChild(Content) content: Content;
 
   constructor(
@@ -38,7 +39,10 @@ export class ChatPage {
     // Get Chat Reference
     cp.getChatByID(this.uid, this.interlocutor)
       .subscribe(user => { console.log('getChatByID' + user)})
-
+      this.speechRecognition.isRecognitionAvailable()
+      .then((available: boolean) => console.log("available:::::::",available))
+      this.speechRecognition.hasPermission()
+  .then((hasPermission: boolean) => console.log("hasPermission::::::",hasPermission))
   }
 
   presentPopover(myEvent) {
@@ -66,6 +70,8 @@ export class ChatPage {
           }, 300);
         })
       });
+
+      this.getIsTyping();
   }
 
 
@@ -84,7 +90,18 @@ export class ChatPage {
   };
 
   sendVoiceMeg() {
-
+    let voiceToText:string = '';
+    this.speechRecognition.startListening()
+    .subscribe(
+      (matches: Array<string>) => {
+        matches.map((d,i)=>{
+          voiceToText = voiceToText + ' '+ d
+        })
+        this.message = this.message.concat('' + voiceToText);
+        console.log(voiceToText)
+      },
+      (onerror) => console.log('error:', onerror)
+    )
   }
 
   sendPicture() {
@@ -132,4 +149,17 @@ export class ChatPage {
     actionSheet.present();
   }
 
+  isTyping(event){
+    this.afd.object(`/typing/${this.interlocutor},${this.uid}/${this.interlocutor}`).set({isTyping:true});
+ console.log('even::::',event)
+  }
+  
+  getIsTyping(){
+   let firstRef = this.afd.list(`/typing/${this.uid},${this.interlocutor}/${this.uid}`, { preserveSnapshot: true })
+    firstRef.subscribe(snapshot => {
+      console.log('snapshot::::',snapshot)
+      // console.log('snapshot.exists()::::',snapsho
+      
+  })
+  }
 }
