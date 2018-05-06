@@ -14,7 +14,9 @@ import { HomePage } from '../home/home';
 export class RegisterPage {
 
   login: any;
-
+  isPasswordShow:boolean = false;
+  passwordType:string="password"
+  
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -51,6 +53,14 @@ export class RegisterPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
+  }
+
+  togglePassword(){
+    this.isPasswordShow = !this.isPasswordShow;
+    if(!this.isPasswordShow) return this.passwordType = "password"
+    if(this.isPasswordShow){
+    return this.passwordType ="text"
+    }
   }
 
 }
