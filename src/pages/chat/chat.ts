@@ -155,9 +155,11 @@ export class ChatPage {
   }
   
   getIsTyping(){
-   let firstRef = this.afd.list(`/typing/${this.uid},${this.interlocutor}/${this.uid}`, { preserveSnapshot: true })
-    firstRef.subscribe(snapshot => {
-      console.log('snapshot::::',snapshot)
+    
+  //  let firstRef = this.afd.object(`/typing/${this.uid},${this.interlocutor}/${this.uid}`, { preserveSnapshot: true })
+   let firstRef = firebase.database().ref(`/typing/${this.uid},${this.interlocutor}/${this.uid}/isTyping`).once('value')
+   firstRef.then(snapshot => {
+      console.log('snapshot::::',snapshot.val())
       // console.log('snapshot.exists()::::',snapsho
       
   })
