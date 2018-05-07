@@ -39,6 +39,7 @@ export class ChatPage {
     // Get Chat Reference
     cp.getChatByID(this.uid, this.interlocutor)
       .subscribe(user => { console.log('getChatByID' + user)})
+      this.typingIndicatorExit();
       this.speechRecognition.isRecognitionAvailable()
       .then((available: boolean) => console.log("available:::::::",available))
       this.speechRecognition.hasPermission()
@@ -149,19 +150,25 @@ export class ChatPage {
     actionSheet.present();
   }
 
-  isTyping(event){
+  allowTypingIndicator(event){
     this.afd.object(`/typing/${this.interlocutor},${this.uid}/${this.interlocutor}`).set({isTyping:true});
- console.log('even::::',event)
   }
   
   getIsTyping(){
-    
-  //  let firstRef = this.afd.object(`/typing/${this.uid},${this.interlocutor}/${this.uid}`, { preserveSnapshot: true })
    let firstRef = firebase.database().ref(`/typing/${this.uid},${this.interlocutor}/${this.uid}/isTyping`).once('value')
    firstRef.then(snapshot => {
       console.log('snapshot::::',snapshot.val())
-      // console.log('snapshot.exists()::::',snapsho
-      
   })
+  }
+
+  typingIndicatorExit(){
+    this.afd.object(`/typing/${this.uid},${this.interlocutor}/${this.uid}`, { preserveSnapshot: true }).subscribe(snapshot => {
+      let a = snapshot.exists();
+      if (a) {
+        this.getIsTyping()
+      } else {
+        false;
+      }
+    });
   }
 }
