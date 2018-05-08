@@ -87,6 +87,7 @@ export class ChatPage {
       };
       this.chats.push(chat);
       this.message = "";
+      this.showRedNotification()
     }
   };
 
@@ -154,11 +155,11 @@ export class ChatPage {
     this.afd.object(`/typing/${this.interlocutor},${this.uid}/${this.interlocutor}`).set({isTyping:true});
   }
   
-  getIsTyping(){
-   let firstRef = firebase.database().ref(`/typing/${this.uid},${this.interlocutor}/${this.uid}/isTyping`).once('value')
-   firstRef.then(snapshot => {
-      console.log('snapshot::::',snapshot.val())
-  })
+  getIsTyping() {
+    let firstRef = firebase.database().ref(`/typing/${this.uid},${this.interlocutor}/${this.uid}/isTyping`).once('value')
+    firstRef.then(snapshot => {
+      console.log('snapshot::::', snapshot.val())
+    })
   }
 
   typingIndicatorExit(){
@@ -170,5 +171,9 @@ export class ChatPage {
         false;
       }
     });
+  }
+
+  showRedNotification(){
+    this.afd.object(`/notification/${this.uid}`).set({notification:true});
   }
 }
