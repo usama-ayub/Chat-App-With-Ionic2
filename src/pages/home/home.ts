@@ -43,5 +43,9 @@ export class HomePage {
     let userModal = this.modalCtrl.create(UserDetailComponent, data);
     userModal.present();
   }
+
+  getRedNotiFication(){
+    
+  }
 }
 
