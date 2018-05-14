@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 import { FirebaseListObservable } from 'angularfire2/database';
+import * as firebase from 'firebase';
 
 import { UserProvider } from '../../providers/user/user';
 import { EmojiProvider } from '../../providers/emoji/emoji';
@@ -13,10 +14,11 @@ import { UserDetailComponent } from './../../components/user-detail/user-detail'
 })
 export class HomePage {
 
-  getAllUser: FirebaseListObservable<any>;
+  // getAllUser: FirebaseListObservable<any>;
   uid: any;
   tes: any
   allEmojis: any;
+  getAllUser:any
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
@@ -26,7 +28,8 @@ export class HomePage {
 
   ionViewDidLoad() {
     this.uid = this.up.loginUser().uid
-    this.getAllUser = this.up.getAllUsers()
+    // this.getAllUser = this.up.getAllUsers()
+    this.getRedNotiFication()
   }
 
   openChat(data) {
@@ -44,8 +47,22 @@ export class HomePage {
     userModal.present();
   }
 
-  getRedNotiFication(){
-    
+  getRedNotiFication() {
+  this.up.getAllUsers().subscribe((users) => {
+    this.getAllUser = users;
+      console.log('users::::::', users)
+         users.map((p, i) => {
+        firebase.database().ref(`/notification/${p.uid}/notification`).once('value').then((snapshot) => {
+          if (snapshot.val()) {
+            p.incomingNotification = snapshot.val()
+          }else{
+            p.incomingNotification = false
+          }
+        })
+      })
+      console.log(this.getAllUser)
+    })
+
   }
 }
 

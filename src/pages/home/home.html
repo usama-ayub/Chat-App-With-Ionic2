@@ -8,9 +8,10 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-spinner color="primary" *ngIf="!(getAllUser | async)"></ion-spinner>
+  
+    <!-- <ion-spinner color="primary" *ngIf="!getAllUser.length"></ion-spinner> -->
     <ion-list>
-        <span *ngFor="let user of getAllUser | async">
+        <span *ngFor="let user of getAllUser">
         <a ion-item (click)="openChat(user)" *ngIf="user.$key !== uid">
              <ion-avatar item-left (click)="userDetail($event,user)">
                 <img *ngIf="!user.profileImageURL" src="assets/images/default.png">
@@ -18,7 +19,7 @@
              </ion-avatar>
              <h2>{{user.email}}</h2>
              <h5>{{user.user_name}}</h5>
-             <span class="red-dot-notifcation" item-end> &#9679;</span>
+             <span class="red-dot-notifcation" item-end *ngIf="user.incomingNotification"> &#9679;</span>
         </a>
       </span>
     </ion-list>
