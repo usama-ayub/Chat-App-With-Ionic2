@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
-import { FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseListObservable,AngularFireDatabase } from 'angularfire2/database';
 import * as firebase from 'firebase';
 
 import { UserProvider } from '../../providers/user/user';
@@ -22,6 +22,7 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
+    public afd: AngularFireDatabase,
     public up: UserProvider,
     public ep: EmojiProvider
   ) { }
@@ -29,7 +30,7 @@ export class HomePage {
   ionViewDidLoad() {
     this.uid = this.up.loginUser().uid
     // this.getAllUser = this.up.getAllUsers()
-    this.getRedNotiFication()
+    this.showIncomeMessage()
   }
 
   openChat(data) {
@@ -38,6 +39,7 @@ export class HomePage {
       interlocutor: data.$key,
       avatar: data.profileImageURL
     };
+    this.hideIncomeMessage(data)
     this.navCtrl.push(ChatPage, param);
   }
 
@@ -47,7 +49,7 @@ export class HomePage {
     userModal.present();
   }
 
-  getRedNotiFication() {
+  showIncomeMessage() {
   this.up.getAllUsers().subscribe((users) => {
     this.getAllUser = users;
       console.log('users::::::', users)
@@ -60,9 +62,20 @@ export class HomePage {
           }
         })
       })
-      console.log(this.getAllUser)
     })
+  }
+
+  hideIncomeMessage(users){
+    this.afd.object(`/notification/${users.uid}`, { preserveSnapshot: true }).subscribe(snapshot => {
+      let a = snapshot.exists();
+      if (a) {
+        this.afd.object(`/notification/${users.uid}`).update({notification:false})
+      } else {
+        false;
+      }
+    });
 
   }
+
 }
 
