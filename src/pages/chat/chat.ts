@@ -20,6 +20,7 @@ export class ChatPage {
   chats: FirebaseListObservable<any>;
   voiceToText:Array<string>;
   @ViewChild(Content) content: Content;
+  isTyping:boolean=false;
 
   constructor(
     public navCtrl: NavController,
@@ -85,8 +86,10 @@ export class ChatPage {
         type: 'message',
         createdAt: firebase.database.ServerValue.TIMESTAMP
       };
+      this.isTyping = false;
       this.chats.push(chat);
       this.message = "";
+      this.hideTypingIndicator();
       this.showRedNotification()
     }
   };
@@ -158,7 +161,11 @@ export class ChatPage {
   getIsTyping() {
     let firstRef = firebase.database().ref(`/typing/${this.uid},${this.interlocutor}/${this.uid}/isTyping`).once('value')
     firstRef.then(snapshot => {
-      console.log('snapshot::::', snapshot.val())
+      if(snapshot.val()){
+        this.isTyping = true;
+      }else{
+        this.isTyping = false;
+      }
     })
   }
 
@@ -171,6 +178,19 @@ export class ChatPage {
         false;
       }
     });
+  }
+
+  hideTypingIndicator(){
+    console.log(`/typing/${this.interlocutor},${this.uid}/${this.interlocutor}`)
+    this.afd.object(`/typing/${this.interlocutor},${this.uid}/${this.interlocutor}`, { preserveSnapshot: true }).subscribe(snapshot => {
+      let a = snapshot.exists();
+      if (a) {
+        this.afd.object(`/typing/${this.interlocutor},${this.uid}/${this.interlocutor}`).update({isTyping:false})
+      } else {
+        false;
+      }
+    });
+
   }
 
   showRedNotification(){
